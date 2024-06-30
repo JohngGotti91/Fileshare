@@ -1,0 +1,37 @@
+import android.os.Bundle;
+import android.app.Activity;
+import android.widget.Button;
+import android.view.View;
+import android.view.View.OnClickListener;
+
+public class TestActivity extends Activity {
+
+    private Button shareButton;
+    // ... other variables and methods ...
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test);
+
+        shareButton = (Button) findViewById(R.id.share_button);
+        shareButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get the Context
+                Context context = getApplicationContext();
+
+                // Get the File object for your test file
+                File shareFile = new File("/path/to/your/test/file.txt"); // Replace with the actual path
+
+                // Create a sharing intent
+                Intent sharingIntent = BookSharingUtils.getSharingIntent(context, "Share this text", shareFile, null);
+
+                // Start the intent if it's not null
+                if (sharingIntent != null) {
+                    startActivity(sharingIntent);
+                }
+            }
+        });
+    }
+}
